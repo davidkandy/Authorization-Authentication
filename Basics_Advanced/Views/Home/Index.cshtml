@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+</div>
+
+@*Simply access quick checks*@
+
+@if (User.Identity.IsAuthenticated)
+{
+    <h1>User is Authenticated</h1>
+}
+else
+{
+    <h1>User is NOT Authenticated</h1>
+}
+
+
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService authorizationService
+
+@if((await authorizationService.AuthorizeAsync(User, "Claim.DoB")).Succeeded)
+{
+    <h1>User has DoB Claims</h1>
+}
